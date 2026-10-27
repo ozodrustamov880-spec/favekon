@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+}
+
+/* Transparent pattern background for icon previews */
+.checkerboard {
+  background-color: #ffffff;
+  background-image: linear-gradient(45deg, #e2e8f0 25%, transparent 25%),
+                    linear-gradient(-45deg, #e2e8f0 25%, transparent 25%),
+                    linear-gradient(45deg, transparent 75%, #e2e8f0 75%),
+                    linear-gradient(-45deg, transparent 75%, #e2e8f0 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}
+
+.dark .checkerboard {
+  background-color: #0f172a;
+  background-image: linear-gradient(45deg, #1e293b 25%, transparent 25%),
+                    linear-gradient(-45deg, #1e293b 25%, transparent 25%),
+                    linear-gradient(45deg, transparent 75%, #1e293b 75%),
+                    linear-gradient(-45deg, transparent 75%, #1e293b 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
