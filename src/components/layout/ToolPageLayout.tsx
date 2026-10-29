@@ -14,7 +14,8 @@ import {
   ArrowRight,
   ShieldCheck,
   CheckCircle2,
-  FileCheck
+  FileCheck,
+  Code
 } from 'lucide-react';
 
 interface ToolPageLayoutProps {
@@ -91,13 +92,31 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({
           </div>
         </div>
 
-        <div className="flex items-center gap-3 self-start md:self-center flex-shrink-0">
+        <div className="flex flex-wrap items-center gap-2.5 self-start md:self-center flex-shrink-0">
+          <button
+            onClick={() => {
+              const el = document.querySelector('pre');
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+                // Also trigger copy of the tag
+                const tagMatch = el.textContent;
+                if (tagMatch) {
+                  navigator.clipboard.writeText(tagMatch);
+                }
+              }
+            }}
+            className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs shadow-md shadow-brand-500/20 active:scale-95 transition-all"
+          >
+            <Code className="w-4 h-4" />
+            <span>&lt;link&gt; Tegni Olish</span>
+          </button>
+
           <button
             onClick={onOpenExport}
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-500 hover:to-accent-500 text-white font-bold text-xs shadow-md shadow-brand-500/20 active:scale-95 transition-all"
+            className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs active:scale-95 transition-all"
           >
             <Download className="w-4 h-4" />
-            <span>Export Favicon Package</span>
+            <span>Fayllarni Yuklash</span>
           </button>
         </div>
       </div>
@@ -223,3 +242,4 @@ export const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({
     </div>
   );
 };
+

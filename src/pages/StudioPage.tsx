@@ -28,3 +28,4 @@ export const StudioPage: React.FC<StudioPageProps> = ({ onNavigate }) => {
     </div>
   );
 };
+

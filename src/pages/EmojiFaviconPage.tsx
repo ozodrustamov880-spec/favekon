@@ -126,3 +126,4 @@ export const EmojiFaviconPage: React.FC<EmojiFaviconPageProps> = ({
     </>
   );
 };
+

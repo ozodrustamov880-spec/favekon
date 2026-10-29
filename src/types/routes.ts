@@ -81,3 +81,4 @@ export const ROUTE_MAP: Record<PageRoute, RouteInfo> = {
     description: 'Complete developer guide, technical specifications, and setup instructions for Next.js, Vite, and HTML.',
   },
 };
+

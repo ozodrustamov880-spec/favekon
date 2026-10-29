@@ -4,6 +4,7 @@ import { BrowserTabPreview } from './BrowserTabPreview';
 import { WebsiteHeaderPreview } from './WebsiteHeaderPreview';
 import { MobileAppPreview } from './MobileAppPreview';
 import { IconSizesGrid } from './IconSizesGrid';
+import { LinkSnippetCard } from './LinkSnippetCard';
 import { 
   Download, 
   Archive, 
@@ -12,8 +13,9 @@ import {
   Layers, 
   Smartphone, 
   Globe, 
-  ExternalLink,
-  Edit3
+  Code,
+  Copy,
+  Check
 } from 'lucide-react';
 import { triggerDownload } from '../../utils/zipExporter';
 
@@ -35,7 +37,7 @@ export const LivePreviewPanel: React.FC<LivePreviewPanelProps> = ({
   onOpenExportModal,
 }) => {
   const [previewTab, setPreviewTab] = useState<'browser' | 'header' | 'mobile' | 'sizes'>('browser');
-  const [isEditingBrand, setIsEditingBrand] = useState(false);
+  const [copiedQuick, setCopiedQuick] = useState(false);
 
   const handleDownloadIco = () => {
     if (icoBlob) {
@@ -43,11 +45,13 @@ export const LivePreviewPanel: React.FC<LivePreviewPanelProps> = ({
     }
   };
 
-  const handleDownloadMasterPng = () => {
-    const icon512 = icons.find((i) => i.size === 512);
-    if (icon512) {
-      triggerDownload(icon512.blob, 'favicon-512x512.png');
-    }
+  const handleCopyDirectLink = () => {
+    const icon32 = icons.find((i) => i.size === 32);
+    const dataUri = icon32?.dataUrl || masterDataUrl;
+    const tag = `<link rel="icon" type="image/png" href="${dataUri}">`;
+    navigator.clipboard.writeText(tag);
+    setCopiedQuick(true);
+    setTimeout(() => setCopiedQuick(false), 2500);
   };
 
   return (
@@ -72,21 +76,30 @@ export const LivePreviewPanel: React.FC<LivePreviewPanelProps> = ({
 
           {/* Quick Action Buttons */}
           <div className="flex items-center gap-2 w-full sm:w-auto">
+            {/* Direct Copy <link> tag CTA */}
             <button
-              onClick={handleDownloadIco}
-              disabled={!icoBlob}
-              className="flex-1 sm:flex-initial px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 flex items-center justify-center gap-1.5 transition-colors"
+              onClick={handleCopyDirectLink}
+              className="flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-bold bg-brand-600 hover:bg-brand-500 text-white flex items-center justify-center gap-1.5 shadow-md shadow-brand-500/25 active:scale-95 transition-all"
             >
-              <Download className="w-3.5 h-3.5" />
-              <span>favicon.ico</span>
+              {copiedQuick ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-emerald-300" />
+                  <span>&lt;link&gt; Nusxalandi!</span>
+                </>
+              ) : (
+                <>
+                  <Code className="w-3.5 h-3.5" />
+                  <span>&lt;link&gt; Tegni Olish</span>
+                </>
+              )}
             </button>
 
             <button
               onClick={onOpenExportModal}
-              className="flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-500 hover:to-accent-500 text-white flex items-center justify-center gap-1.5 shadow-md shadow-brand-500/20 active:scale-98 transition-all"
+              className="flex-1 sm:flex-initial px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 flex items-center justify-center gap-1.5 transition-colors"
             >
               <Archive className="w-3.5 h-3.5" />
-              <span>Export Package</span>
+              <span>Eksport</span>
             </button>
           </div>
         </div>
@@ -246,6 +259,13 @@ export const LivePreviewPanel: React.FC<LivePreviewPanelProps> = ({
         </div>
       </div>
 
+      {/* 🚀 FIRST-CLASS <link> TAG COPY CARD (Direct embed & production tags) */}
+      <LinkSnippetCard
+        masterDataUrl={masterDataUrl}
+        icons={icons}
+        editorState={editorState}
+      />
+
       {/* Resolutions Grid (Always visible below for instant accessibility) */}
       {previewTab !== 'sizes' && (
         <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
@@ -259,4 +279,3 @@ export const LivePreviewPanel: React.FC<LivePreviewPanelProps> = ({
     </div>
   );
 };
-

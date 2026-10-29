@@ -132,3 +132,4 @@ export const ImageFaviconPage: React.FC<ImageFaviconPageProps> = ({
     </>
   );
 };
+

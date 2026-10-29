@@ -156,3 +156,4 @@ export const TextFaviconPage: React.FC<TextFaviconPageProps> = ({
     </>
   );
 };
+
