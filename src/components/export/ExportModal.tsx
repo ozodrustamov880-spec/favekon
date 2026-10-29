@@ -20,6 +20,7 @@ import {
   generateReadme, 
   triggerDownload 
 } from '../../utils/zipExporter';
+import { copyToClipboard } from '../../utils/clipboard';
 
 interface ExportModalProps {
   isOpen: boolean;
@@ -46,10 +47,12 @@ export const ExportModal: React.FC<ExportModalProps> = ({
   const manifestSnippet = generateWebmanifest(editorState.brandName || 'My Application', editorState.bgColor || '#4f46e5');
   const readmeSnippet = generateReadme(editorState.brandName || 'My Application');
 
-  const handleCopyHtml = () => {
-    navigator.clipboard.writeText(htmlSnippet);
-    setCopiedHtml(true);
-    setTimeout(() => setCopiedHtml(false), 2000);
+  const handleCopyHtml = async () => {
+    const success = await copyToClipboard(htmlSnippet);
+    if (success) {
+      setCopiedHtml(true);
+      setTimeout(() => setCopiedHtml(false), 2000);
+    }
   };
 
   const handleDownloadZip = async () => {

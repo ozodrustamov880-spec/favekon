@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BookOpen, Copy, Check, Sparkles, Terminal, Code, Home, ChevronRight } from 'lucide-react';
 import { generateHtmlSnippet } from '../../utils/zipExporter';
+import { copyToClipboard as executeCopy } from '../../utils/clipboard';
 import type { PageRoute } from '../../types/routes';
 
 interface DocumentationPageProps {

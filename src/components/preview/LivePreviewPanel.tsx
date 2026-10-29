@@ -18,6 +18,7 @@ import {
   Check
 } from 'lucide-react';
 import { triggerDownload } from '../../utils/zipExporter';
+import { copyToClipboard } from '../../utils/clipboard';
 
 interface LivePreviewPanelProps {
   masterDataUrl: string;
@@ -45,13 +46,17 @@ export const LivePreviewPanel: React.FC<LivePreviewPanelProps> = ({
     }
   };
 
-  const handleCopyDirectLink = () => {
+  const handleCopyDirectLink = async () => {
     const icon32 = icons.find((i) => i.size === 32);
     const dataUri = icon32?.dataUrl || masterDataUrl;
-    const tag = `<link rel="icon" type="image/png" href="${dataUri}">`;
-    navigator.clipboard.writeText(tag);
-    setCopiedQuick(true);
-    setTimeout(() => setCopiedQuick(false), 2500);
+    const tag = `<!-- Favicon by IconForge -->\n<link rel="icon" type="image/png" href="${dataUri}">`;
+    const success = await copyToClipboard(tag);
+    if (success) {
+      setCopiedQuick(true);
+      setTimeout(() => setCopiedQuick(false), 2500);
+    }
+    // Also scroll down to the link snippet card
+    document.getElementById('link-snippet-section')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
