@@ -266,3 +266,4 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ state, onChange }) => 
     </div>
   );
 };
+

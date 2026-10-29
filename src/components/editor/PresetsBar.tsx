@@ -72,3 +72,4 @@ export const PresetsBar: React.FC<PresetsBarProps> = ({
     </div>
   );
 };
+

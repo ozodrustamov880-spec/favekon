@@ -120,3 +120,4 @@ export const SvgEditor: React.FC<SvgEditorProps> = ({ state, onChange }) => {
     </div>
   );
 };
+

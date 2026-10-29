@@ -1,13 +1,22 @@
 import React from 'react';
-import { Sparkles, ArrowRight } from 'lucide-react';
-import { ToolType } from '../../types/favicon';
+import { Sparkles } from 'lucide-react';
+import { PageRoute } from '../../types/routes';
 
 interface IconShowcaseProps {
-  onStartCreating: () => void;
+  onNavigate: (route: PageRoute) => void;
 }
 
-export const IconShowcase: React.FC<IconShowcaseProps> = ({ onStartCreating }) => {
-  const showcaseIcons = [
+export const IconShowcase: React.FC<IconShowcaseProps> = ({ onNavigate }) => {
+  const showcaseIcons: {
+    style: string;
+    tag: string;
+    bg: string;
+    shape: string;
+    border: string;
+    content: React.ReactNode;
+    desc: string;
+    route: PageRoute;
+  }[] = [
     {
       style: 'Minimal Letter',
       tag: 'Classic',
@@ -16,6 +25,7 @@ export const IconShowcase: React.FC<IconShowcaseProps> = ({ onStartCreating }) =
       border: 'border-slate-800',
       content: <span className="font-serif font-black text-white text-xl">M</span>,
       desc: 'Elegant editorial serif on deep slate',
+      route: 'text-to-favicon',
     },
     {
       style: 'Colorful Geometric',
@@ -25,6 +35,7 @@ export const IconShowcase: React.FC<IconShowcaseProps> = ({ onStartCreating }) =
       border: 'border-transparent',
       content: <span className="font-sans font-black text-white text-xl">IF</span>,
       desc: 'Vibrant multi-stop SaaS gradient',
+      route: 'text-to-favicon',
     },
     {
       style: 'Rounded Square',
@@ -34,6 +45,7 @@ export const IconShowcase: React.FC<IconShowcaseProps> = ({ onStartCreating }) =
       border: 'border-blue-700',
       content: <span className="font-sans font-black text-white text-2xl">A</span>,
       desc: 'Clean bold primary brand mark',
+      route: 'text-to-favicon',
     },
     {
       style: 'Circular Icon',
@@ -43,6 +55,7 @@ export const IconShowcase: React.FC<IconShowcaseProps> = ({ onStartCreating }) =
       border: 'border-transparent',
       content: <span className="font-mono font-bold text-white text-lg">&lt;/&gt;</span>,
       desc: 'Developer code badge inside circle',
+      route: 'svg-to-favicon',
     },
     {
       style: 'Emoji Icon',
@@ -52,6 +65,7 @@ export const IconShowcase: React.FC<IconShowcaseProps> = ({ onStartCreating }) =
       border: 'border-indigo-500/50',
       content: <span className="text-2xl">🚀</span>,
       desc: 'Rocket launch emoji with neon border',
+      route: 'emoji-to-favicon',
     },
     {
       style: 'Transparent Background',
@@ -61,6 +75,7 @@ export const IconShowcase: React.FC<IconShowcaseProps> = ({ onStartCreating }) =
       border: 'border-slate-300 dark:border-slate-700',
       content: <span className="text-2xl">⚡</span>,
       desc: 'Transparent PNG cutout with alpha channel',
+      route: 'image-to-favicon',
     },
     {
       style: 'Squircle Luxury',
@@ -70,6 +85,7 @@ export const IconShowcase: React.FC<IconShowcaseProps> = ({ onStartCreating }) =
       border: 'border-amber-300',
       content: <span className="font-serif font-bold text-white text-xl">👑</span>,
       desc: 'Gold royal badge with squircle contour',
+      route: 'emoji-to-favicon',
     },
     {
       style: 'Cyber Glow',
@@ -79,6 +95,7 @@ export const IconShowcase: React.FC<IconShowcaseProps> = ({ onStartCreating }) =
       border: 'border-cyan-400 ring-2 ring-cyan-500/30',
       content: <span className="font-mono font-bold text-cyan-400 text-lg">DEV</span>,
       desc: 'Terminal green & cyan code icon',
+      route: 'text-to-favicon',
     },
   ];
 
@@ -93,15 +110,17 @@ export const IconShowcase: React.FC<IconShowcaseProps> = ({ onStartCreating }) =
             Craft Any Aesthetic For Your Brand
           </h3>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
-            From minimalist monogram typography to glowing gradient squircles and transparent cutouts.
+            Click on any style to open its dedicated creation studio.
           </p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
           {showcaseIcons.map((item, idx) => (
-            <div
+            <button
               key={idx}
-              className="p-5 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center group"
+              type="button"
+              onClick={() => onNavigate(item.route)}
+              className="p-5 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-md hover:border-brand-400 transition-all flex flex-col items-center text-center group cursor-pointer"
             >
               {/* Icon Container */}
               <div
@@ -114,19 +133,19 @@ export const IconShowcase: React.FC<IconShowcaseProps> = ({ onStartCreating }) =
                 {item.tag}
               </div>
 
-              <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200">
+              <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-brand-600 transition-colors">
                 {item.style}
               </h4>
               <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1">
                 {item.desc}
               </p>
-            </div>
+            </button>
           ))}
         </div>
 
         <div className="mt-10 text-center">
           <button
-            onClick={onStartCreating}
+            onClick={() => onNavigate('text-to-favicon')}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs shadow-md shadow-brand-500/20 active:scale-95 transition-all"
           >
             <Sparkles className="w-4 h-4" />

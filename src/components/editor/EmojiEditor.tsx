@@ -148,3 +148,4 @@ export const EmojiEditor: React.FC<EmojiEditorProps> = ({ state, onChange }) => 
     </div>
   );
 };
+

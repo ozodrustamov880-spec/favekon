@@ -111,3 +111,4 @@ export const SupportedFormats: React.FC = () => {
     </section>
   );
 };
+

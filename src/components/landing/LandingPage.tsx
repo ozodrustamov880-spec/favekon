@@ -5,22 +5,18 @@ import { IconShowcase } from './IconShowcase';
 import { HowItWorks } from './HowItWorks';
 import { SupportedFormats } from './SupportedFormats';
 import { FAQSection } from './FAQSection';
-import { ToolType } from '../../types/favicon';
+import { PageRoute } from '../../types/routes';
 
 interface LandingPageProps {
-  onStartCreating: () => void;
-  onSelectTool: (tool: ToolType) => void;
+  onNavigate: (route: PageRoute) => void;
 }
 
-export const LandingPage: React.FC<LandingPageProps> = ({
-  onStartCreating,
-  onSelectTool,
-}) => {
+export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
   return (
     <div className="space-y-0">
-      <Hero onStartCreating={onStartCreating} onSelectTool={onSelectTool} />
-      <ToolsGrid onSelectTool={onSelectTool} />
-      <IconShowcase onStartCreating={onStartCreating} />
+      <Hero onNavigate={onNavigate} />
+      <ToolsGrid onNavigate={onNavigate} />
+      <IconShowcase onNavigate={onNavigate} />
       <HowItWorks />
       <SupportedFormats />
       <FAQSection />

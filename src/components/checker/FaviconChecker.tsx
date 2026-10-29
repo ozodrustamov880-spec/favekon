@@ -14,6 +14,8 @@ import {
   Sparkles
 } from 'lucide-react';
 import { triggerDownload } from '../../utils/zipExporter';
+import type { PageRoute } from '../../types/routes';
+import { Home, ChevronRight } from 'lucide-react';
 
 interface IconInspectionResult {
   url: string;
@@ -34,7 +36,11 @@ interface SiteCheckReport {
   notes: string[];
 }
 
-export const FaviconChecker: React.FC = () => {
+interface FaviconCheckerProps {
+  onNavigate?: (route: PageRoute) => void;
+}
+
+export const FaviconChecker: React.FC<FaviconCheckerProps> = ({ onNavigate }) => {
   const [inputUrl, setInputUrl] = useState('');
   const [isChecking, setIsChecking] = useState(false);
   const [report, setReport] = useState<SiteCheckReport | null>(null);
@@ -206,7 +212,22 @@ export const FaviconChecker: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      {/* Breadcrumb Navigation */}
+      {onNavigate && (
+        <nav className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-6">
+          <button
+            onClick={() => onNavigate('home')}
+            className="flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+          >
+            <Home className="w-3.5 h-3.5" />
+            <span>Home</span>
+          </button>
+          <ChevronRight className="w-3 h-3 text-slate-400" />
+          <span className="font-semibold text-slate-900 dark:text-white">Favicon Checker</span>
+        </nav>
+      )}
+
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto mb-10">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300 border border-brand-200 dark:border-brand-900 mb-3">
@@ -394,3 +415,4 @@ export const FaviconChecker: React.FC = () => {
     </div>
   );
 };
+

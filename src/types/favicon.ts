@@ -73,3 +73,4 @@ export interface DesignPreset {
   previewIcon: string;
   config: Partial<EditorState>;
 }
+

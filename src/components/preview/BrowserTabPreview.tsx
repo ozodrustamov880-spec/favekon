@@ -83,3 +83,4 @@ export const BrowserTabPreview: React.FC<BrowserTabPreviewProps> = ({
     </div>
   );
 };
+

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Sparkles, ArrowRight, CheckCircle2, Shield, Zap, Layers, RefreshCw } from 'lucide-react';
-import { ToolType } from '../../types/favicon';
+import { Sparkles, ArrowRight, CheckCircle2, Shield } from 'lucide-react';
+import { PageRoute } from '../../types/routes';
 
 interface HeroProps {
-  onStartCreating: () => void;
-  onSelectTool: (tool: ToolType) => void;
+  onNavigate: (route: PageRoute) => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onStartCreating, onSelectTool }) => {
+export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   // Live interactive mini-preview state inside Hero!
   const [heroLetter, setHeroLetter] = useState('IF');
   const [heroShape, setHeroShape] = useState<'squircle' | 'circle' | 'rounded'>('squircle');
@@ -42,7 +41,7 @@ export const Hero: React.FC<HeroProps> = ({ onStartCreating, onSelectTool }) => 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10">
             <button
-              onClick={onStartCreating}
+              onClick={() => onNavigate('text-to-favicon')}
               className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-500 hover:to-accent-500 text-white font-bold text-base shadow-xl shadow-brand-500/25 hover:shadow-brand-500/35 active:scale-95 transition-all flex items-center justify-center gap-2 group"
             >
               <span>Create Your Favicon</span>
@@ -168,11 +167,11 @@ export const Hero: React.FC<HeroProps> = ({ onStartCreating, onSelectTool }) => 
                 </div>
 
                 <button
-                  onClick={onStartCreating}
-                  className="w-full mt-2 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm"
+                  onClick={() => onNavigate('text-to-favicon')}
+                  className="w-full mt-2 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-transform active:scale-95"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>Open in Full Studio Editor</span>
+                  <span>Open in Text to Favicon Page</span>
                 </button>
               </div>
 

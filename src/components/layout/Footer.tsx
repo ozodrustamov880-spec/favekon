@@ -1,19 +1,13 @@
 import React from 'react';
 import { BrandLogo } from './BrandLogo';
 import { Heart, Globe, Shield, Sparkles } from 'lucide-react';
-import type { ToolType } from '../../types/favicon';
+import { PageRoute } from '../../types/routes';
 
 interface FooterProps {
-  onSelectTool: (tool: ToolType) => void;
-  onOpenChecker: () => void;
-  onOpenDocs: () => void;
+  onNavigate: (route: PageRoute) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({
-  onSelectTool,
-  onOpenChecker,
-  onOpenDocs,
-}) => {
+export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
     <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
@@ -31,42 +25,50 @@ export const Footer: React.FC<FooterProps> = ({
             </div>
           </div>
 
-          {/* Generator Tools */}
+          {/* Generator Tool Pages */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4">
-              Favicon Generators
+              Dedicated Generators
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
                 <button
-                  onClick={() => onSelectTool('text')}
+                  onClick={() => onNavigate('text-to-favicon')}
                   className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                 >
-                  Text to Favicon
+                  Text to Favicon Generator
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onSelectTool('image')}
+                  onClick={() => onNavigate('image-to-favicon')}
                   className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                 >
-                  Image to Favicon (PNG/JPG)
+                  Image to Favicon Converter
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onSelectTool('emoji')}
+                  onClick={() => onNavigate('emoji-to-favicon')}
                   className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                 >
-                  Emoji to Favicon
+                  Emoji to Favicon Generator
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onSelectTool('svg')}
+                  onClick={() => onNavigate('svg-to-favicon')}
                   className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                 >
-                  SVG to Favicon
+                  SVG to Favicon Converter
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onNavigate('editor')}
+                  className="text-brand-600 dark:text-brand-400 font-semibold hover:underline transition-colors"
+                >
+                  All-in-One Studio Workspace
                 </button>
               </li>
             </ul>
@@ -80,7 +82,7 @@ export const Footer: React.FC<FooterProps> = ({
             <ul className="space-y-2.5 text-sm">
               <li>
                 <button
-                  onClick={onOpenChecker}
+                  onClick={() => onNavigate('favicon-checker')}
                   className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                 >
                   Website Favicon Checker
@@ -88,27 +90,37 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
-                  onClick={onOpenDocs}
+                  onClick={() => onNavigate('documentation')}
                   className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                 >
-                  Favicon Standards Guide
+                  Favicon Standards & Documentation
                 </button>
               </li>
               <li>
-                <a
-                  href="#how-it-works"
+                <button
+                  onClick={() => {
+                    onNavigate('home');
+                    setTimeout(() => {
+                      document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                  }}
                   className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                 >
                   How It Works
-                </a>
+                </button>
               </li>
               <li>
-                <a
-                  href="#faq"
+                <button
+                  onClick={() => {
+                    onNavigate('home');
+                    setTimeout(() => {
+                      document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                  }}
                   className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                 >
                   Frequently Asked Questions
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -116,7 +128,7 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Formats Generated */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4">
-              Output Formats
+              Generated Assets
             </h4>
             <div className="flex flex-wrap gap-1.5 text-xs">
               <span className="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono">
@@ -135,7 +147,7 @@ export const Footer: React.FC<FooterProps> = ({
                 192×192 Android
               </span>
               <span className="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono">
-                512×512 PWA Splash
+                512×512 Splash
               </span>
               <span className="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono">
                 site.webmanifest
@@ -143,7 +155,7 @@ export const Footer: React.FC<FooterProps> = ({
             </div>
             <div className="mt-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-800">
               <div className="text-xs font-medium text-slate-600 dark:text-slate-300 flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-brand-500" /> Ready for Next.js, Vite & WP
+                <Sparkles className="w-3.5 h-3.5 text-brand-500" /> Compatible with Next.js, Vite & WP
               </div>
             </div>
           </div>
@@ -152,7 +164,7 @@ export const Footer: React.FC<FooterProps> = ({
         {/* Bottom bar */}
         <div className="mt-12 pt-6 border-t border-slate-200/60 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
           <div>
-            © {new Date().getFullYear()} IconForge. All rights reserved. Built for modern creators & web developers.
+            © {new Date().getFullYear()} IconForge. All rights reserved. Created for modern developers and designers.
           </div>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">

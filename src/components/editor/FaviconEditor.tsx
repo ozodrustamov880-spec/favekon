@@ -237,3 +237,4 @@ export const FaviconEditor: React.FC<FaviconEditorProps> = ({ initialTool = 'tex
     </div>
   );
 };
+

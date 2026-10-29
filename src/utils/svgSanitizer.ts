@@ -95,3 +95,4 @@ export function sanitizeSvg(rawSvg: string): { cleanSvg: string; isValid: boolea
     return { cleanSvg: '', isValid: false, error: err.message || 'Failed to parse SVG' };
   }
 }
+
